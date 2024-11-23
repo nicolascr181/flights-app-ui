@@ -1,0 +1,16 @@
+<section class="flex flex-row align-items-center justify-content-center">
+    <div class="m-4">
+        <h1 class="text-center">DCX</h1>
+        <app-flights-search (searchEvent)="search($event)"></app-flights-search>
+        <h2 class="text-center"> DCX Result</h2>
+        <ng-container *ngFor="let response of responses">
+            <!-- <h3> {{ response.origin}} - {{response.destination}} </h3>
+            <app-flights-container-list [journeys]="response.journeys">
+            </app-flights-container-list> -->
+        </ng-container>
+    </div>
+</section>
+
+<div class="card">
+    <p-toast></p-toast>
+</div>
