@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ICurrency } from '../flights-container-list/interfaces';
+import { ICurrency } from '../interfaces/interfaces';
 import { TripType } from './enum';
 import { PrimeNGImports } from '../primeng-imports';
 import { CommonModule } from '@angular/common';

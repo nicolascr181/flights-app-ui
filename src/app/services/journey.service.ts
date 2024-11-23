@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IResponse } from '../flights-container-list/interfaces';
+import { IResponse } from '../interfaces/interfaces';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class JourneyService {
@@ -13,6 +14,6 @@ export class JourneyService {
      * @returns 
      */
     getJourneyList(body: object) {
-        return this.http.post<IResponse[]>("/api/Journey", body);
+        return this.http.post<IResponse[]>(`${environment.pathFlightsAPI}api/Journey`, body);
     }
 };

@@ -1,19 +1,18 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PrimeNGImports } from '../primeng-imports';
-import { FlightsContainerListComponent } from '../flights-container-list/flights-container-list.component';
-import { IJourney, IResponse, ISearchData } from '../flights-container-list/interfaces';
+import { IJourney, IResponse, ISearchData } from '../interfaces/interfaces';
 import { MessageService } from 'primeng/api';
 import { JourneyService } from '../services/journey.service';
 import { FlightsSearchComponent } from '../flights-search/flights-search.component';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { FlightsContainerListComponent } from '../flights-container-list/flights-container-list.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, PrimeNGImports, FlightsSearchComponent],
+  imports: [CommonModule, PrimeNGImports, FlightsSearchComponent, FlightsContainerListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [JourneyService, MessageService]
