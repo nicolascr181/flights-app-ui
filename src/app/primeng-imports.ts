@@ -9,6 +9,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DataViewModule } from 'primeng/dataview';
 import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
+import { AutoCompleteModule } from "primeng/autocomplete";
+import { FloatLabelModule } from 'primeng/floatlabel';
+
 
 
 @NgModule({
@@ -21,6 +24,8 @@ import { ToastModule } from 'primeng/toast';
         DataViewModule,
         CardModule,
         ToastModule,
+        AutoCompleteModule,
+        FloatLabelModule
     ],
     exports: [
         ButtonModule,
@@ -31,6 +36,8 @@ import { ToastModule } from 'primeng/toast';
         DataViewModule,
         CardModule,
         ToastModule,
+        AutoCompleteModule,
+        FloatLabelModule
     ],
 })
 export class PrimeNGImports { }

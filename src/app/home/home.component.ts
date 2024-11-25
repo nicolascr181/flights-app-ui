@@ -30,8 +30,14 @@ export class HomeComponent {
 
   search($event: ISearchData) {
     this.searchData = $event;
+    const filterSearchData = {
+      origin: this.searchData.origin?.code,
+      destination: this.searchData.destination?.code,
+      tripType: this.searchData.tripType,
+      CurrencyType: this.searchData.currencyType
+    }
     if (this.searchData) {
-      this.journeyService.getJourneyList(this.searchData)
+      this.journeyService.getJourneyList(filterSearchData)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (res: IResponse[]) => {

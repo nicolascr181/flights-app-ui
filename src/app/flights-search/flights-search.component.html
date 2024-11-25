@@ -1,14 +1,22 @@
 <form [formGroup]="form">
     <div class="formgroup-inline">
-        <div class="field">
-            <input type="text" pInputText formControlName="origin" placeholder="Origin" />
-        </div>
-        <div class="field">
-            <input type="text" pInputText formControlName="destination" placeholder="Destination" />
-        </div>
+        <p-floatLabel>
+            <p-autoComplete class="field" formControlName="origin" [suggestions]="filteredCities"
+                [forceSelection]="true" (completeMethod)="filterCity($event)" optionLabel="name" inputId="origin"
+                [dropdown]="true" (onSelect)="onSelect($event,'origin')" />
+            <label for="origin">Origin</label>
+
+        </p-floatLabel>
+
+        <p-floatLabel>
+            <p-autoComplete class="field" formControlName="destination" [suggestions]="filteredCities"
+                [forceSelection]="true" (completeMethod)="filterCity($event)" optionLabel="name" inputId="destination"
+                [dropdown]="true" (onSelect)="onSelect($event,'destination')" />
+            <label for="destination">Destination</label>
+        </p-floatLabel>
     </div>
 
-    <div class="formgrid grid">
+    <div class="formgrid grid mt-3">
         <div *ngFor="let tripType of tripTypes" class="field-radiobutton col-4">
             <p-radioButton [inputId]="tripType" [value]="tripType" formControlName="tripType"></p-radioButton>
             <label [for]="tripType" class="ml-2">{{ tripType }}</label>
@@ -21,7 +29,8 @@
     </div>
 
     <div class="flex justify-content-center">
-        <button pButton pRipple label="Search" (click)="search()"></button>
+        <button pButton pRipple label="Search" (click)="search()" [disabled]="form.invalid || disableButton"
+            [loading]="loadingButton"></button>
     </div>
 
 </form>

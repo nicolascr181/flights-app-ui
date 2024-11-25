@@ -29,10 +29,10 @@ export interface ITransport {
 }
 
 export interface ISearchData {
-    origin?: string;
-    destination?: string;
+    origin?: { name: string, code: string };
+    destination?: { name: string, code: string };
     tripType?: string;
-    currency?: string;
+    currencyType?: string;
 }
 export interface ICurrency {
     name: string;
@@ -49,4 +49,17 @@ export interface ICurrencyDetails {
 
 export interface ICurrencyResponse {
     [currencyCode: string]: ICurrencyDetails;
+}
+
+export interface IAirportResponse {
+    icao?: string;
+    iata?: string;
+    name?: string;
+    city?: string;
+    region?: string;
+    country?: string;
+    elevation_ft?: string;
+    latitude?: string;
+    longitude?: string;
+    timezone?: string;
 }
