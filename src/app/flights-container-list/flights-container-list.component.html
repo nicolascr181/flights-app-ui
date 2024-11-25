@@ -10,7 +10,7 @@
 
                         </div>
                         <span class="text-2xl">
-                            {{ journey.totalPrice}}
+                            {{ getFormattedPrice(journey.totalPrice, journey.currency) }}
                         </span>
                     </div>
                     <app-flights-card [flights]="journey.flights"></app-flights-card>

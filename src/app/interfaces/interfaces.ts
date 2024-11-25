@@ -10,7 +10,8 @@ export interface IJourney {
     destination?: string;
     price?: number;
     flights?: IFlight[];
-    totalPrice?: number;
+    totalPrice: number;
+    currency: string;
 }
 
 export interface IFlight {
@@ -36,4 +37,16 @@ export interface ISearchData {
 export interface ICurrency {
     name: string;
     code: string
+}
+
+export interface ICurrencyDetails {
+    symbol: string;
+    name: string;
+    code: string;
+    decimalDigits: number;
+    rounding: number;
+}
+
+export interface ICurrencyResponse {
+    [currencyCode: string]: ICurrencyDetails;
 }

@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    pathFlightsAPI: "http://localhost:57679/"
+    pathFlightsAPI: "https://localhost:57679/"
 };

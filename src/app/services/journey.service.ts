@@ -14,6 +14,6 @@ export class JourneyService {
      * @returns 
      */
     getJourneyList(body: object) {
-        return this.http.post<IResponse[]>(`${environment.pathFlightsAPI}api/Journey`, body);
+        return this.http.post<IResponse[]>(`${environment.pathFlightsAPI}v1/journey`, body);
     }
 };

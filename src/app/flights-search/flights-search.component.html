@@ -15,8 +15,8 @@
         </div>
 
         <div class="field col-4">
-            <p-dropdown formControlName="currencyType" [options]="currencies" optionLabel="name"
-                optionValue="code"></p-dropdown>
+            <p-dropdown formControlName="currencyType" [options]="currencies" optionLabel="name" optionValue="code"
+                [loading]="loadingCombo" />
         </div>
     </div>
 

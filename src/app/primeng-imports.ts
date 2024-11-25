@@ -20,7 +20,7 @@ import { ToastModule } from 'primeng/toast';
         DropdownModule,
         DataViewModule,
         CardModule,
-        ToastModule
+        ToastModule,
     ],
     exports: [
         ButtonModule,
@@ -30,7 +30,7 @@ import { ToastModule } from 'primeng/toast';
         DropdownModule,
         DataViewModule,
         CardModule,
-        ToastModule
+        ToastModule,
     ],
 })
 export class PrimeNGImports { }
