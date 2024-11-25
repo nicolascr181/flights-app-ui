@@ -11,6 +11,7 @@ import { CardModule } from 'primeng/card';
 import { ToastModule } from 'primeng/toast';
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { StyleClassModule } from 'primeng/styleclass';
 
 
 
@@ -25,7 +26,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
         CardModule,
         ToastModule,
         AutoCompleteModule,
-        FloatLabelModule
+        FloatLabelModule,
+        StyleClassModule
     ],
     exports: [
         ButtonModule,
@@ -37,7 +39,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
         CardModule,
         ToastModule,
         AutoCompleteModule,
-        FloatLabelModule
+        FloatLabelModule,
+        StyleClassModule
     ],
 })
 export class PrimeNGImports { }

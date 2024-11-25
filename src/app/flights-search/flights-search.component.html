@@ -16,7 +16,7 @@
         </p-floatLabel>
     </div>
 
-    <div class="formgrid grid mt-3">
+    <div class="formgrid grid mt-3 text-primary-50">
         <div *ngFor="let tripType of tripTypes" class="field-radiobutton col-4">
             <p-radioButton [inputId]="tripType" [value]="tripType" formControlName="tripType"></p-radioButton>
             <label [for]="tripType" class="ml-2">{{ tripType }}</label>

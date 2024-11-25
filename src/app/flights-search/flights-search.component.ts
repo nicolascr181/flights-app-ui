@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output, DestroyRef } from '@angular/core';
+import { Component, inject, OnInit, DestroyRef } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { TripType } from './enum';
 import { PrimeNGImports } from '../primeng-imports';
@@ -9,6 +9,9 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { cities } from '../constants/cities.constant';
 import { AirportService } from '../services/airport.service';
 import { MessageService } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { updateSearch } from '../store/search.actions';
+import { SearchState } from '../store/search.reducer';
 
 @Component({
   selector: 'app-flights-search',
@@ -23,7 +26,6 @@ export class FlightsSearchComponent implements OnInit {
   form: FormGroup;
   currencies: { name: string; code: string; symbol: string }[] = [];
   tripTypes: TripType[] = Object.values(TripType);
-  @Output() searchEvent: EventEmitter<any> = new EventEmitter();
   destroyRef = inject(DestroyRef);
   loadingCombo = true;
   filteredCities: any[] = [];
@@ -36,7 +38,8 @@ export class FlightsSearchComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private currencyService: CurrencyService,
     private airportService: AirportService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private store: Store<SearchState>) {
     this.form = this.fb.group({
       origin: ['', Validators.required],
       destination: ['', Validators.required],
@@ -46,6 +49,15 @@ export class FlightsSearchComponent implements OnInit {
     this.cities = cities;
   }
   ngOnInit(): void {
+    this.getAllCurrencies();
+
+  }
+
+
+  /**
+   * Get all currencies from server
+   */
+  getAllCurrencies() {
     this.currencyService
       .getCurrencyList()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -59,7 +71,7 @@ export class FlightsSearchComponent implements OnInit {
           this.loadingCombo = false
         },
         error: (err) => {
-          this.loadingCombo = false
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Internal Error. Please try again.' });
         }
       })
   }
@@ -68,7 +80,19 @@ export class FlightsSearchComponent implements OnInit {
    *  Send form to parent component
    */
   search() {
-    this.searchEvent.emit(this.form.getRawValue());
+    const origin = this.form.get("origin")?.value?.name;
+    const destination = this.form.get("destination")?.value?.name;
+
+    if (origin === destination) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Origin and destination cannot be the same. Please choose a different destination.',
+      });
+    } else {
+      this.store.dispatch(updateSearch({ searchData: this.form.getRawValue() }));
+    }
+
   }
 
   /**
