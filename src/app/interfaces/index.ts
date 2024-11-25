@@ -1,0 +1,9 @@
+export { IAirportResponse } from "./IAirportResponse";
+export { ICurrency } from "./ICurrency";
+export { ICurrencyDetails } from "./ICurrencyDetails";
+export { ICurrencyResponse } from "./ICurrencyResponse";
+export { IFlight } from "./IFlights";
+export { IJourney } from "./IJourney";
+export { IResponse } from "./IResponse";
+export { ISearchData } from "./ISearchData";
+export { ITransport } from "./ITransport";

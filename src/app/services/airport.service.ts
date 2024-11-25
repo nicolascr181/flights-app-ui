@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { IAirportResponse } from '../interfaces/interfaces';
+import { IAirportResponse } from '../interfaces/index';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AirportService {
    * @param body 
    * @returns 
    */
-  getAirports(city: string) {
+  public getAirports(city: string) {
     const headers = new HttpHeaders({
       'X-Api-Key': environment.ninjaAPIKEY // Replace with your actual API key
     });

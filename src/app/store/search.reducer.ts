@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { updateSearch } from "./search.actions";
-import { ISearchData } from "../interfaces/interfaces";
+import { ISearchData } from "../interfaces/index";
 
 export interface SearchState {
     searchData: ISearchData | null;

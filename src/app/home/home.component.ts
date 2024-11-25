@@ -1,16 +1,15 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PrimeNGImports } from '../primeng-imports';
-import { IJourney, IResponse, ISearchData } from '../interfaces/interfaces';
-import { MessageService } from 'primeng/api';
-import { JourneyService } from '../services/journey.service';
-import { FlightsSearchComponent } from '../flights-search/flights-search.component';
 import { CommonModule } from '@angular/common';
 import { FlightsContainerListComponent } from '../flights-container-list/flights-container-list.component';
+import { FlightsSearchComponent } from '../flights-search/flights-search.component';
+import { IJourney, IResponse, ISearchData } from '../interfaces/index';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { JourneyService } from '../services/journey.service';
+import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { PrimeNGImports } from '../primeng-imports';
 import { Store } from '@ngrx/store';
 import { SearchState, selectSearchData } from '../store/search.reducer';
-
 
 @Component({
   selector: 'app-home',
@@ -22,11 +21,11 @@ import { SearchState, selectSearchData } from '../store/search.reducer';
 })
 export class HomeComponent implements OnInit {
 
-  searchData!: ISearchData;
-  journeys?: IJourney[]
-  responses?: IResponse[]
-  destroyRef = inject(DestroyRef);
-  searchData$!: Observable<ISearchData | null>;
+  public journeys?: IJourney[]
+  public responses?: IResponse[]
+  private searchData!: ISearchData;
+  private destroyRef = inject(DestroyRef);
+  private searchData$!: Observable<ISearchData | null>;
 
   constructor(private journeyService: JourneyService,
     private messageService: MessageService,
@@ -54,7 +53,7 @@ export class HomeComponent implements OnInit {
    * @param $event 
    * @returns 
    */
-  search($event: ISearchData) {
+  private search($event: ISearchData): void {
     this.searchData = $event;
 
     if (!this.searchData) {

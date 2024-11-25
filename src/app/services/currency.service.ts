@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICurrencyResponse, IResponse } from '../interfaces/interfaces';
+import { ICurrencyResponse, IResponse } from '../interfaces/index';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class CurrencyService {
    * @param body 
    * @returns 
    */
-  getCurrencyList() {
+  public getCurrencyList() {
     return this.http.get<ICurrencyResponse>(`${environment.pathFlightsAPI}v1/currency`);
   }
 }

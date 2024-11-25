@@ -1,17 +1,18 @@
-import { Component, inject, OnInit, DestroyRef } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { TripType } from './enum';
-import { PrimeNGImports } from '../primeng-imports';
+import { AirportService } from '../services/airport.service';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CurrencyService } from '../services/currency.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { cities } from '../constants/cities.constant';
-import { AirportService } from '../services/airport.service';
+import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { PrimeNGImports } from '../primeng-imports';
+import { TripType } from './enum';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { updateSearch } from '../store/search.actions';
 import { SearchState } from '../store/search.reducer';
+import { updateSearch } from '../store/search.actions';
+
 
 @Component({
   selector: 'app-flights-search',
@@ -23,16 +24,16 @@ import { SearchState } from '../store/search.reducer';
 })
 export class FlightsSearchComponent implements OnInit {
 
-  form: FormGroup;
-  currencies: { name: string; code: string; symbol: string }[] = [];
-  tripTypes: TripType[] = Object.values(TripType);
-  destroyRef = inject(DestroyRef);
-  loadingCombo = true;
-  filteredCities: any[] = [];
-  cities: { name: string, code?: string }[];
-  IATACode? = "";
-  loadingButton = false;
-  disableButton = true;
+  public form: FormGroup;
+  public currencies: { name: string; code: string; symbol: string }[] = [];
+  public tripTypes: TripType[] = Object.values(TripType);
+  public loadingButton = false;
+  public disableButton = true;
+  public loadingCombo = true;
+  public filteredCities: any[] = [];
+  private destroyRef = inject(DestroyRef);
+  private cities: { name: string, code?: string }[];
+
 
 
   constructor(private fb: FormBuilder,
@@ -53,33 +54,23 @@ export class FlightsSearchComponent implements OnInit {
 
   }
 
-
   /**
-   * Get all currencies from server
-   */
-  getAllCurrencies() {
-    this.currencyService
-      .getCurrencyList()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (res) => {
-          this.currencies = Object.keys(res).map((key) => ({
-            name: res[key].name,
-            code: key,
-            symbol: res[key].symbol
-          }));
-          this.loadingCombo = false
-        },
-        error: (err) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Internal Error. Please try again.' });
-        }
-      })
+  * Set iata code on selecting city
+  * @param $event 
+  * @param type 
+  */
+  public onSelect($event: any, type: string) {
+    this.loadingButton = true;
+    const city = $event.value.name
+    this.getIATACode(city, type)
+
   }
+
 
   /**
    *  Send form to parent component
    */
-  search() {
+  public search(): void {
     const origin = this.form.get("origin")?.value?.name;
     const destination = this.form.get("destination")?.value?.name;
 
@@ -99,7 +90,7 @@ export class FlightsSearchComponent implements OnInit {
    * Filter city based on user input
    * @param event 
    */
-  filterCity(event: AutoCompleteCompleteEvent) {
+  public filterCity(event: AutoCompleteCompleteEvent): void {
     let filtered: any[] = [];
     let query = event.query;
 
@@ -118,7 +109,7 @@ export class FlightsSearchComponent implements OnInit {
    * @param city 
    * @param type 
    */
-  private getIATACode(city: string, type: string) {
+  private getIATACode(city: string, type: string): void {
     this.airportService
       .getAirports(city)
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -139,16 +130,28 @@ export class FlightsSearchComponent implements OnInit {
   }
 
   /**
-   * Set iata code on selecting city
-   * @param $event 
-   * @param type 
-   */
-  onSelect($event: any, type: string) {
-    this.loadingButton = true;
-    const city = $event.value.name
-    this.getIATACode(city, type)
-
+  * Get all currencies from server
+  */
+  private getAllCurrencies(): void {
+    this.currencyService
+      .getCurrencyList()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.currencies = Object.keys(res).map((key) => ({
+            name: res[key].name,
+            code: key,
+            symbol: res[key].symbol
+          }));
+          this.loadingCombo = false
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Internal Error. Please try again.' });
+        }
+      })
   }
+
+
 }
 
 

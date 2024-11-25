@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { IFlight } from '../interfaces/interfaces';
 import { CommonModule } from '@angular/common';
+import { IFlight } from '../interfaces/index';
+
 
 @Component({
   selector: 'app-flights-card',
@@ -11,6 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class FlightsCardComponent {
 
-  @Input() flights?: IFlight[]
+  @Input() public flights?: IFlight[]
 
 }

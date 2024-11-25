@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IJourney } from '../interfaces/interfaces';
-import { FlightsCardComponent } from '../flights-card/flights-card.component';
-import { PrimeNGImports } from '../primeng-imports';
+import { Component, Input } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { FlightsCardComponent } from '../flights-card/flights-card.component';
+import { IJourney } from '../interfaces/index';
+import { PrimeNGImports } from '../primeng-imports';
+
 
 @Component({
   selector: 'app-flights-container-list',
@@ -12,17 +13,11 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
   styleUrl: './flights-container-list.component.scss',
   providers: [CurrencyPipe]
 })
-export class FlightsContainerListComponent implements OnInit {
+export class FlightsContainerListComponent {
 
-  @Input() journeys?: IJourney[];
-
+  @Input() public journeys?: IJourney[];
 
   constructor(private currencyPipe: CurrencyPipe) {
-
-  }
-
-  ngOnInit(): void {
-
   }
 
   /**
@@ -31,7 +26,7 @@ export class FlightsContainerListComponent implements OnInit {
    * @param currencyCode 
    * @returns 
    */
-  getFormattedPrice(price: number, currencyCode: string): string {
+  public getFormattedPrice(price: number, currencyCode: string): string {
     return this.currencyPipe.transform(price, currencyCode) ?? '';
   }
 
